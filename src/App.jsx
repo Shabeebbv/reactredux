@@ -1,14 +1,19 @@
 import { useDispatch, useSelector } from "react-redux"
+import fetching from "./thunk/action"
+import { useEffect } from "react"
 function App() {
-  const count=useSelector((state)=>state.count)
+  const {users,loading,error}=useSelector((state)=>state)
   const dispatch=useDispatch()
-  
+  useEffect(()=>{
+    dispatch(fetching())
+  },[dispatch])
 
   return (
     <>
-    <h1>Count: {count}</h1>
+    {users.map((users)=>(<div>{users.name}</div>))}
+    {/* <h1>Count: {count}</h1>
      <button onClick={()=>dispatch({type:"increment"})}>+</button>
-     <button onClick={()=>dispatch({type:"decrement"})}>-</button>
+     <button onClick={()=>dispatch({type:"decrement"})}>-</button> */}
     </>
   )
 }
